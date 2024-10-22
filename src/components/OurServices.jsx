@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import colors from "../assets/colors";
 import { Typography, useMediaQuery } from "@mui/material";
+import assets from "../assets/images";
 
 export default function OurServices() {
   const services = [
@@ -12,14 +13,14 @@ export default function OurServices() {
       name: "Installation",
       description:
         "Professional installation of CCTV cameras for your security needs.",
-      image: "https://images.unsplash.com/photo-1646935235864-b8f42a0b8bc7",
+      image: assets.images.cctv2,
     },
     {
       id: "2",
       name: "Servicing and Maintenance",
       description:
         "Regular servicing and maintenance to keep your CCTV systems operational.",
-      image: "https://images.unsplash.com/photo-1565591452825-67d6b7df1d47",
+      image: assets.images.cctv1,
     },
     {
       id: "3",
@@ -178,43 +179,45 @@ export default function OurServices() {
                     >
                       {service.description}
                     </Typography>
-                    {selectedService.id === service.id && isSmallScreen ? (
+                  </Box>
+                  {selectedService.id === service.id && isSmallScreen ? (
+                    <Box
+                      sx={{
+                        borderRadius: { xs: "25px", md: "70px" },
+                        overflow: "hidden",
+                        boxSizing: "border-box",
+                        width: "100%",
+                        aspectRatio: 1 / 1,
+                        display: "flex",
+                        mb: 2,
+                        height: "auto",
+                        transition: "transform 0.3s ease-in-out",
+                        "&:hover": {
+                          transform: "scale(1.05)", // Slight scaling effect on hover
+                        },
+                      }}
+                    >
                       <Box
+                        component="img"
+                        src={selectedService.image}
+                        alt={selectedService.name}
+                        key={selectedService.id}
                         sx={{
-                          borderRadius: { xs: "25px", md: "70px" },
-                          overflow: "hidden",
+                          aspectRatio: "1/1",
                           width: "100%",
-                          display: "flex",
-                          mb: 2,
                           height: "auto",
-                          transition: "transform 0.3s ease-in-out",
+                          objectFit: "cover",
+                          borderRadius: "inherit",
+                          opacity: 1,
+                          transition: "opacity 0.5s ease, filter 0.5s ease",
+                          filter: "blur(0px)",
                           "&:hover": {
-                            transform: "scale(1.05)", // Slight scaling effect on hover
+                            filter: "blur(0px)",
                           },
                         }}
-                      >
-                        <Box
-                          component="img"
-                          src={selectedService.image}
-                          alt={selectedService.name}
-                          key={selectedService.id}
-                          sx={{
-                            aspectRatio: "1/1",
-                            width: "100%",
-                            height: "auto",
-                            objectFit: "cover",
-                            borderRadius: "inherit",
-                            opacity: 1,
-                            transition: "opacity 0.5s ease, filter 0.5s ease",
-                            filter: "blur(0px)",
-                            "&:hover": {
-                              filter: "blur(0px)",
-                            },
-                          }}
-                        />
-                      </Box>
-                    ) : null}
-                  </Box>
+                      />
+                    </Box>
+                  ) : null}
                 </Box>
               ))}
             </Box>

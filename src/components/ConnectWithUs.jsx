@@ -29,7 +29,8 @@ const ConnectWithUs = () => {
       container
       spacing={2}
       sx={{
-        padding: { xs: 4, md: 8 },
+        paddingBlock: 4,
+        paddingInline: { xs: 1, md: 8 },
         marginTop: "40px",
         backgroundColor: "rgb(4, 114, 77)",
       }}
