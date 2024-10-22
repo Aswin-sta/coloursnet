@@ -3,7 +3,7 @@
 }
 
 :root {
-  --button-border-radius: 0.9em;
+  --button-border-radius: 0.3em;
 }
 @media only screen and (min-width: 700px) {
   :root {

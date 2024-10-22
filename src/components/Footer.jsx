@@ -12,7 +12,7 @@ const Footer = () => {
       }}
     >
       <Container>
-        <Typography variant="body1">
+        <Typography variant="caption">
           &copy; 2024 Service Website. All rights reserved.
         </Typography>
       </Container>
