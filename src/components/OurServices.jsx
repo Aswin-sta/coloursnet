@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import colors from "../assets/colors";
 import { Typography, useMediaQuery } from "@mui/material";
 import assets from "../assets/images";
+import { useInView } from "react-intersection-observer";
 
 export default function OurServices() {
   const services = [
@@ -51,21 +52,34 @@ export default function OurServices() {
     setSelectedService(service);
   };
 
-  // Define the fly-up animation using react-spring
-  const flyUp = useSpring({
-    from: { transform: "translateY(50px)", opacity: 0 }, // Start from below and invisible
-    to: { transform: "translateY(0)", opacity: 1 }, // Move to final position and become visible
-    config: { duration: 1000 }, // Increase duration for a slower effect
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Animation triggers only once when in view
+    threshold: 0.1, // Adjust the threshold for triggering
+  });
+  // Define smoother animation using react-spring
+  const smoothAnimation = useSpring({
+    from: { opacity: 0, transform: "translateY(50px)" },
+    to: inView
+      ? { opacity: 1, transform: "translateY(0)" }
+      : { opacity: 0, transform: "translateY(50px)" },
+    config: {
+      tension: 350,
+      friction: 5,
+      duration: 1200,
+    },
+  });
+  // Add image-specific fade-in animation
+  const imageAnimation = useSpring({
+    opacity: selectedService ? 1 : 0,
+    config: { duration: 800 }, // Duration of fade-in for the image
   });
 
   return (
-    <animated.div style={flyUp}>
-      {" "}
-      {/* Wrap with animated.div */}
+    <animated.div style={smoothAnimation} ref={ref}>
       <Box
         sx={{
-          paddingBlock: { xs: 2, md: 4 },
-          paddingInline: { xs: 2, md: 16 },
+          paddingBlock: { xs: 2, sm: 3, md: 4 },
+          paddingInline: { xs: 2, sm: 4, md: 10, lg: 16 },
         }}
       >
         <Typography
@@ -75,17 +89,17 @@ export default function OurServices() {
           gutterBottom
           sx={{
             fontWeight: 500,
-            mb: 10,
-            mt: { xs: 8, md: 16 },
+            mb: { xs: 6, sm: 8, md: 10 },
+            mt: { xs: 6, sm: 8, md: 10 },
             fontSize: {
-              xs: "2.5em",
-              sm: "4em",
-              md: "5em",
-              lg: "6em",
+              xs: "1.8em", // Reduced for mobile
+              sm: "2.5em", // Small screens
+              md: "3.2em", // Medium screens
+              lg: "4em", // Large screens
             },
-            color: colors.darkBlue,
+            color: colors.primaryFont,
             fontFamily: "'Gestura', serif",
-            lineHeight: "0.9em",
+            lineHeight: "1.1em",
           }}
         >
           Our Services
@@ -94,7 +108,7 @@ export default function OurServices() {
           container
           sx={{
             border: `1px solid ${colors.borderColor}`,
-            borderRadius: { xs: "25px", md: "70px" },
+            borderRadius: { xs: "20px", sm: "30px", md: "50px", lg: "70px" },
             overflow: "hidden",
           }}
         >
@@ -119,21 +133,15 @@ export default function OurServices() {
                     },
                     backgroundColor:
                       selectedService.id === service.id
-                        ? colors.beige
+                        ? colors.secondaryColor
                         : "transparent",
                     "&:hover": {
-                      backgroundColor: colors.beige,
+                      backgroundColor: colors.secondaryColor,
                       transform: "scale(1.02)", // Scale effect on hover
-                      boxShadow: `0 4px 20px rgba(0, 0, 0, 0.1)`, // Add shadow on hover
+                      boxShadow: `0 4px 20px rgba(0, 0, 0, 0.1)`,
                     },
-                    paddingInline: { xs: 2, md: 6 },
-                    paddingBlock: 4,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "start",
-                    width: "100%",
-                    boxSizing: "border-box",
+                    paddingInline: { xs: 2, sm: 4, md: 6 },
+                    paddingBlock: { xs: 2, sm: 3, md: 4 },
                     transition:
                       "background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out", // Smooth transition
                   }}
@@ -142,15 +150,16 @@ export default function OurServices() {
                     variant="h6"
                     sx={{
                       fontWeight: 500,
-                      mb: { xs: 2, md: 4 },
+                      mb: { xs: 1, sm: 2, md: 3 },
                       fontSize: {
-                        xs: "1.8em",
-                        md: "2em",
-                        lg: "2.5em",
+                        xs: "1.26em", // Adjusted for mobile (10% smaller)
+                        sm: "1.44em", // Small screens
+                        md: "1.8em", // Medium screens
+                        lg: "2.16em", // Large screens
                       },
-                      color: colors.darkBlue,
+                      color: colors.primaryFont,
                       fontFamily: "'Gestura', serif",
-                      lineHeight: "0.9em",
+                      lineHeight: "1em",
                       textAlign: "left",
                     }}
                   >
@@ -161,16 +170,17 @@ export default function OurServices() {
                       maxHeight:
                         selectedService.id === service.id ? "100px" : 0,
                       overflow: "hidden",
-                      transition: "max-height 0.5s ease, padding 0.5s ease",
+                      transition: "max-height 0.8s ease, padding 0.5s ease", // Smoother transition
                       paddingTop: selectedService.id === service.id ? 2 : 0,
                     }}
                   >
                     <Typography
                       variant="body1"
                       sx={{
-                        color: colors.darkBlue,
+                        color: colors.primaryFont,
                         fontFamily: "'RoobertPRO', sans-serif",
-                        fontSize: { xs: "0.9em", sm: "1em", md: "1.1em" },
+                        mb: { xs: 2, sm: 3, md: 4 },
+                        fontSize: { xs: "0.85em", sm: "0.95em", md: "1.05em" },
                         fontWeight: 400,
                         letterSpacing: "-0.02em",
                         textAlign: "justify",
@@ -181,42 +191,46 @@ export default function OurServices() {
                     </Typography>
                   </Box>
                   {selectedService.id === service.id && isSmallScreen ? (
-                    <Box
-                      sx={{
-                        borderRadius: { xs: "25px", md: "70px" },
-                        overflow: "hidden",
-                        boxSizing: "border-box",
-                        width: "100%",
-                        aspectRatio: 1 / 1,
-                        display: "flex",
-                        mb: 2,
-                        height: "auto",
-                        transition: "transform 0.3s ease-in-out",
-                        "&:hover": {
-                          transform: "scale(1.05)", // Slight scaling effect on hover
-                        },
-                      }}
+                    <animated.div
+                      style={imageAnimation} // Apply fade-in animation to the image
                     >
                       <Box
-                        component="img"
-                        src={selectedService.image}
-                        alt={selectedService.name}
-                        key={selectedService.id}
                         sx={{
-                          aspectRatio: "1/1",
+                          borderRadius: { xs: "20px", sm: "30px", md: "50px" },
+                          overflow: "hidden",
+                          boxSizing: "border-box",
                           width: "100%",
+                          aspectRatio: 1 / 1,
+                          display: "flex",
+                          mb: 2,
                           height: "auto",
-                          objectFit: "cover",
-                          borderRadius: "inherit",
-                          opacity: 1,
-                          transition: "opacity 0.5s ease, filter 0.5s ease",
-                          filter: "blur(0px)",
+                          transition: "transform 0.8s ease-in-out", // Smoother image animation
                           "&:hover": {
-                            filter: "blur(0px)",
+                            transform: "scale(1.05)",
                           },
                         }}
-                      />
-                    </Box>
+                      >
+                        <Box
+                          component="img"
+                          src={selectedService.image}
+                          alt={selectedService.name}
+                          key={selectedService.id}
+                          sx={{
+                            aspectRatio: "1/1",
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "cover",
+                            borderRadius: "inherit",
+                            opacity: 1,
+                            transition: "opacity 0.8s ease, filter 0.8s ease", // Smoother transition for opacity and blur
+                            filter: "blur(0px)",
+                            "&:hover": {
+                              filter: "blur(0px)",
+                            },
+                          }}
+                        />
+                      </Box>
+                    </animated.div>
                   ) : null}
                 </Box>
               ))}
@@ -229,38 +243,38 @@ export default function OurServices() {
               justifyContent: "center",
               alignItems: "center",
               borderLeft: `1px solid ${colors.borderColor}`,
-              background: colors.beige,
+              background: colors.secondaryColor,
             }}
           >
             <Box
               sx={{
-                borderRadius: { xs: "25px", md: "70px" },
+                borderRadius: {
+                  xs: "20px",
+                  sm: "30px",
+                  md: "50px",
+                  lg: "70px",
+                },
                 overflow: "hidden",
                 width: "80%",
                 height: "auto",
-                transition: "transform 0.3s ease-in-out",
+                transition: "transform 0.8s ease-in-out", // Smoother animation on large screen
                 "&:hover": {
-                  transform: "scale(1.05)",
+                  transform: "scale(1.05)", // Scale effect on hover
                 },
               }}
             >
-              <Box
-                component="img"
+              <animated.img
                 src={selectedService.image}
                 alt={selectedService.name}
                 key={selectedService.id}
-                sx={{
+                style={{
+                  ...imageAnimation, // Spread the animation styles
                   aspectRatio: "1/1",
                   width: "100%",
                   height: "auto",
                   objectFit: "cover",
                   borderRadius: "inherit",
                   opacity: 1,
-                  transition: "opacity 0.5s ease, filter 0.5s ease",
-                  filter: "blur(0px)",
-                  "&:hover": {
-                    filter: "blur(0px)",
-                  },
                 }}
               />
             </Box>

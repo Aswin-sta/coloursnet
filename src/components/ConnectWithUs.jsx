@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid2";
 import { Typography, TextField, Button, useMediaQuery } from "@mui/material";
 import colors from "../assets/colors";
 import tinycolor from "tinycolor2";
+import { color } from "framer-motion";
 
 const ConnectWithUs = () => {
   const [message, setMessage] = React.useState("");
@@ -32,7 +33,7 @@ const ConnectWithUs = () => {
         paddingBlock: 4,
         paddingInline: { xs: 1, md: 8 },
         marginTop: "40px",
-        backgroundColor: "rgb(4, 114, 77)",
+        backgroundColor: colors.primaryColor,
       }}
     >
       <Grid
@@ -41,7 +42,7 @@ const ConnectWithUs = () => {
           display: "flex",
           justifyContent: "left",
           alignItems: "center",
-          paddingInline: { xs: 5, md: 8, lg: 18 },
+          paddingInline: { xs: 2, md: 8, lg: 18 },
         }}
       >
         <Typography
@@ -103,14 +104,14 @@ const ConnectWithUs = () => {
                     },
                   },
                   "& input": {
-                    color: colors.darkBlue,
+                    color: colors.primaryFont,
                   },
                   "& .MuiInputLabel-root": {
-                    color: colors.darkBlue,
+                    color: colors.primaryFont,
                     opacity: 0.7,
                   },
                   "& .MuiInputLabel-root.Mui-focused": {
-                    color: colors.darkBlue,
+                    color: colors.primaryFont,
                   },
                 }}
               />
@@ -141,14 +142,14 @@ const ConnectWithUs = () => {
                 },
                 "& input": {
                   padding: "10px",
-                  color: colors.darkBlue,
+                  color: colors.primaryFont,
                 },
                 "& .MuiInputLabel-root": {
-                  color: colors.darkBlue,
+                  color: colors.primaryFont,
                   opacity: 0.7,
                 },
                 "& .MuiInputLabel-root.Mui-focused": {
-                  color: colors.darkBlue,
+                  color: colors.primaryFont,
                 },
               }}
             />
@@ -158,7 +159,7 @@ const ConnectWithUs = () => {
               variant="contained"
               onClick={handleSendMessage}
               sx={{
-                backgroundColor: "rgb(122, 229, 130)",
+                backgroundColor: colors.secondaryColor,
                 color: "rgb(4, 114, 77)",
                 padding: { xs: "4px 15px", md: "8px 20px", lg: "8px 30px" },
                 borderRadius: "var(--button-border-radius)",
@@ -168,7 +169,7 @@ const ConnectWithUs = () => {
                 fontSize: "0.9em",
                 fontFamily: "'Quattrocento Sans', sans-serif",
                 "&:hover": {
-                  backgroundColor: tinycolor("rgb(122, 229, 130)")
+                  backgroundColor: tinycolor(colors.secondaryColor)
                     .lighten(10)
                     .toString(),
                   boxShadow: 0,

@@ -28,7 +28,7 @@ const Navbar = () => {
             <Typography
               variant="h6"
               sx={{
-                color: colors.darkBlue,
+                color: colors.primaryFont,
                 fontFamily: "'Bruno Ace SC', sans-serif",
               }}
             >

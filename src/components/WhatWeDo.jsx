@@ -1,7 +1,8 @@
 import React from "react";
-import { Typography, useMediaQuery } from "@mui/material";
+import { Button, Typography, useMediaQuery } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import colors from "../assets/colors";
+import tinycolor from "tinycolor2";
 
 const styles = {
   container: {
@@ -132,13 +133,15 @@ const WhatWeDo = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: { xs: "16%", md: "7%" },
       }}
     >
       <Grid
-        item
-        xs={12}
-        sx={{ paddingInline: { xs: "10%", sm: "15%", md: "20%", lg: "30%" } }}
+        size={12}
+        sx={{
+          paddingTop: { xs: "16%", md: "7%" },
+          paddingInline: { xs: "10%", sm: "15%", md: "20%", lg: "30%" },
+          position: "relative",
+        }}
       >
         <Typography
           variant="h1"
@@ -150,7 +153,7 @@ const WhatWeDo = () => {
               md: "5em",
               lg: "6em",
             },
-            color: colors.darkBlue,
+            color: colors.primaryFont,
             fontWeight: 500,
             mb: 1,
             fontFamily: "'Gestura', serif",
@@ -161,15 +164,14 @@ const WhatWeDo = () => {
         </Typography>
       </Grid>
       <Grid
-        item
-        xs={12}
+        size={12}
         sx={{ paddingInline: { xs: "10%", sm: "15%", md: "20%", lg: "30%" } }}
       >
         <Typography
           variant="body1"
           sx={{
-            mb: 14,
-            color: colors.darkBlue,
+            mb: 2,
+            color: colors.primaryFont,
             fontFamily: "'RoobertPRO', sans-serif",
             fontSize: { xs: "0.9em", sm: "1em", md: "1.1em" },
             fontWeight: 400,
@@ -181,12 +183,52 @@ const WhatWeDo = () => {
           professional services in Canada.
         </Typography>
       </Grid>
-      <Grid item xs={12} sx={{ width: "100%" }}>
+      <Grid
+        item
+        container
+        spacing={2}
+        justifyContent="center"
+        sx={{ mb: { xs: 4, md: 8 } }}
+      >
+        <Grid
+          size={12}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: colors.primaryColor,
+              color: "white",
+              padding: { xs: "6px 12px", md: "10px 20px", lg: "15px 30px" },
+              borderRadius: "var(--button-border-radius)",
+              textTransform: "none",
+              fontWeight: "bold",
+              boxShadow: 0,
+              fontSize: "0.9em",
+              fontFamily: "'Quattrocento Sans', sans-serif",
+              "&:hover": {
+                backgroundColor: tinycolor(colors.primaryColor)
+                  .lighten(10)
+                  .toString(),
+                boxShadow: 0,
+              },
+            }}
+          >
+            About Us
+          </Button>
+        </Grid>
+      </Grid>
+      {/* <Grid size={12} sx={{ width: "100%" }}>
         <CircleQuadrants
           imageSrc="https://plus.unsplash.com/premium_photo-1727443796323-4446e56b9cd5?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           imageIndex={2}
         />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
