@@ -1,9 +1,9 @@
 const colors = {
-  background: "rgb(253, 251, 244)",
-  borderColor: "rgba(0, 74, 51, 0.15)",
+  background: "rgb(0,0,0)",
+  borderColor: "#0B192C",
   primaryColor: "#3A5CB5",
-  darkBlue: "rgb(0, 46, 82)",
-  beige: "#f6f3e7",
+  darkBlue: "#EEEEEE",
+  beige: "#1E3E62",
 };
 
 export default colors;
